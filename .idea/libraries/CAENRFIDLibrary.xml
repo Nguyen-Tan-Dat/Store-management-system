@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="CAENRFIDLibrary">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/src/main/lib/RFID/CAENRFIDLibrary.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/main/lib/RFID/OctaneSDKJava-3.0.0.0-jar-with-dependencies.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/main/lib/RFID/OctaneSDKJava-3.0.0.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/main/lib/RFID/RXTXcomm.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
