@@ -46,7 +46,7 @@ public class ManagementView extends SeeView {
         };
     }
 
-    private MouseAdapter update() {
+    public MouseAdapter update() {
         return new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -80,7 +80,7 @@ public class ManagementView extends SeeView {
         };
     }
 
-    private MouseAdapter add() {
+    public MouseAdapter add() {
         return new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {

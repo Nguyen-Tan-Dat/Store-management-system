@@ -36,23 +36,29 @@ public class MainFrame extends JFrame {
         MainFrame.employee = employee;
     }
 
-    public static ArrayList<Function> functions;
-
+    public static ArrayList<Function> functions=new ArrayList<>();
+    private static final Function[] allFunction = {
+            new Function("Bán hàng", GoogleMaterialDesignIcons.STORE, new SellView()),
+            new Function("Nhập hàng", GoogleMaterialDesignIcons.SYSTEM_UPDATE_ALT, new ImportProductsView()),
+            new Function("Khách Hàng", GoogleMaterialDesignIcons.SUPERVISOR_ACCOUNT, new ManagementView( new CustomerControl())),
+            new Function("Nhân viên", GoogleMaterialDesignIcons.GROUP, new ManagementView(new EmployeeControl())),
+            new Function("Nhà cung cấp", GoogleMaterialDesignIcons.BUSINESS, new ManagementView( new SupplierControl())),
+            new Function("Dòng sản phẩm", GoogleMaterialDesignIcons.STYLE, new ManagementView( new ProductControl())),
+            new Function("Sản phẩm", GoogleMaterialDesignIcons.TABLET_ANDROID, new IndividualProductView()),
+            new Function("Khuyến mãi", GoogleMaterialDesignIcons.REDEEM, new ManagementView( new PromotionControl())),
+            new Function("Hóa đơn bán", GoogleMaterialDesignIcons.ASSIGNMENT, new BillView()),
+            new Function("Hóa đơn nhập", GoogleMaterialDesignIcons.RECEIPT, new ImportView()),
+            new Function("Thống kê", GoogleMaterialDesignIcons.INSERT_CHART, new BieuDoView()),
+            new Function("Phân quyền", GoogleMaterialDesignIcons.VERIFIED_USER, new ManagementView(new AuthorizationControl())),
+    };
+    private void activeFunction(){
+        functions = new ArrayList<>();
+        for(var function:allFunction){
+            functions.add(function);
+        }
+        functions.add(new Function("Cài đặt", GoogleMaterialDesignIcons.SETTINGS, new SettingView()));
+    }
     private void activeFunction(String[] active) {
-        Function[] allFunction = {
-                new Function("Bán hàng", GoogleMaterialDesignIcons.STORE, new SellView()),
-                new Function("Nhập hàng", GoogleMaterialDesignIcons.SYSTEM_UPDATE_ALT, new ImportProductsView()),
-                new Function("Khách Hàng", GoogleMaterialDesignIcons.SUPERVISOR_ACCOUNT, new ManagementView( new CustomerControl())),
-                new Function("Nhân viên", GoogleMaterialDesignIcons.GROUP, new ManagementView(new EmployeeControl())),
-                new Function("Nhà cung cấp", GoogleMaterialDesignIcons.BUSINESS, new ManagementView( new SupplierControl())),
-                new Function("Dòng sản phẩm", GoogleMaterialDesignIcons.STYLE, new ManagementView( new ProductControl())),
-                new Function("Sản phẩm", GoogleMaterialDesignIcons.TABLET_ANDROID, new IndividualProductView()),
-                new Function("Khuyến mãi", GoogleMaterialDesignIcons.REDEEM, new ManagementView( new PromotionControl())),
-                new Function("Hóa đơn bán", GoogleMaterialDesignIcons.ASSIGNMENT, new BillView()),
-                new Function("Hóa đơn nhập", GoogleMaterialDesignIcons.RECEIPT, new ImportView()),
-                new Function("Thống kê", GoogleMaterialDesignIcons.INSERT_CHART, new BieuDoView()),
-                new Function("Phân quyền", GoogleMaterialDesignIcons.VERIFIED_USER, new ManagementView(new AuthorizationControl())),
-        };
         functions = new ArrayList<>();
         for (var function : allFunction) {
             for (String s : active) {
@@ -70,7 +76,16 @@ public class MainFrame extends JFrame {
         MainFrame.windowChild.setVisible(true);
     }
 
+    public MainFrame(){
+        activeFunction();
+        init();
+    }
+
     public MainFrame(String[] actives) {
+        activeFunction(actives);
+        init();
+    }
+    private void init(){
         windowChild = new JDialog(this);
         windowChild.setModal(true);
         windowChild.setResizable(false);
@@ -88,7 +103,6 @@ public class MainFrame extends JFrame {
         center = new JPanel();
         center.setLayout(new BorderLayout());
         center.setBorder(new MatteBorder(0, 0, 20, 20, getBackground()));
-        activeFunction(actives);
         var home = new HomeView(functions);
         functions.add(0, new Function("Trang chủ", GoogleMaterialDesignIcons.HOME, home));
         setView("Trang chủ");

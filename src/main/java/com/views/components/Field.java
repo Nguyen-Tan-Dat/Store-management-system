@@ -3,6 +3,7 @@ package com.views.components;
 import com.utils.Input;
 import com.utils.InputText;
 import com.utils.InputDate;
+import com.utils.MyColor;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -16,7 +17,7 @@ public class Field extends JPanel {
     public Field(String[] names) {
         setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
         for (var i : names) {
-            if (i.contains("day")) {
+            if (i.toLowerCase().contains("ngày")) {
                 InputDate temp=new InputDate();
                 temp.setBorder(new TitledBorder(null, i, TitledBorder.LEADING, TitledBorder.TOP, null, getForeground()));
                 temp.setPreferredSize(new Dimension(300, 50));
@@ -31,6 +32,8 @@ public class Field extends JPanel {
             }
         }
         ok = new JButton("OK");
+        ok.setBackground(MyColor.primary);
+        ok.setForeground(MyColor.white);
         ok.setPreferredSize(new Dimension(100, 40));
         add(ok);
 
