@@ -20,7 +20,6 @@ import javax.swing.border.MatteBorder;
 public class LoginFrame extends JFrame {
     private final JTextField phone;
     private final JPasswordField password;
-    private JCheckBox checkNhoMatKhau;
 
     public LoginFrame() {
         int width = 400;
@@ -45,24 +44,24 @@ public class LoginFrame extends JFrame {
         phone = new HintTextField("Số điện thoại");
         phone.setBackground(getBackground());
         phone.setForeground(Color.WHITE);
-        phone.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.WHITE));
+        phone.setBorder(new MatteBorder(0, 0, 1, 0, Color.WHITE));
         password = new JPasswordField();
         phone.setPreferredSize(new Dimension(300, 26));
         password.setPreferredSize(new Dimension(300, 26));
         password.setBackground(getBackground());
         password.setForeground(Color.WHITE);
-        password.setBorder(new MatteBorder(0, 0, 1, 0, (Color) Color.WHITE));
+        password.setBorder(new MatteBorder(0, 0, 1, 0, Color.WHITE));
         getContentPane().add(new JLabel(IconFontSwing.buildIcon(GoogleMaterialDesignIcons.PHONE, 30, Color.white)));
         getContentPane().add(phone);
         getContentPane().add(new JLabel(IconFontSwing.buildIcon(GoogleMaterialDesignIcons.VPN_KEY, 30, Color.white)));
         getContentPane().add(password);
-        
-        checkNhoMatKhau = new JCheckBox("Nhớ thông tin đăng nhập");
-        checkNhoMatKhau.setFocusPainted(false);
-        checkNhoMatKhau.setBackground(btOK.getForeground());
-        checkNhoMatKhau.setForeground(btOK.getBackground());
-        checkNhoMatKhau.setPreferredSize(new Dimension(300,30));
-        getContentPane().add(checkNhoMatKhau);
+
+        JCheckBox remember = new JCheckBox("Nhớ thông tin đăng nhập");
+        remember.setFocusPainted(false);
+        remember.setBackground(btOK.getForeground());
+        remember.setForeground(btOK.getBackground());
+        remember.setPreferredSize(new Dimension(300,30));
+        getContentPane().add(remember);
         getContentPane().add(btOK);
         phone.addKeyListener(new KeyAdapter() {
             @Override
@@ -88,13 +87,8 @@ public class LoginFrame extends JFrame {
             }
         });
     }
-
-    private boolean login() {
-        if(phone.getText().isEmpty()||password.getText().isEmpty()){
-            JOptionPane.showMessageDialog(getRootPane(), "Vui lòng nhập đầy đủ thông tin đăng nhập!");
-            return false;
-        }
-        var employees = (new Employee()).login(phone.getText(), password.getText());
+    public static boolean login(String phone,char[]password){
+        var employees = (new Employee()).login(phone, password);
         if (employees.size() == 0) return false;
         String id = "";
         Model employee = null;
@@ -111,12 +105,19 @@ public class LoginFrame extends JFrame {
         }
         var authorization = control.getList().get(employee.getData()[5]);
         if (authorization == null) {
-            JOptionPane.showMessageDialog(getRootPane(), "Tài khoản không có quyền đăng nhập vào hệ thống!");
+            JOptionPane.showMessageDialog(null, "Tài khoản không có quyền đăng nhập vào hệ thống!");
             System.exit(0);
         }
         String[] actives = authorization.getData()[1].split(", ");
         new MainFrame(actives).setVisible(true);
         return true;
+    }
+    private boolean login() {
+        if(phone.getText().isEmpty()||password.getPassword().length<=0){
+            JOptionPane.showMessageDialog(getRootPane(), "Vui lòng nhập đầy đủ thông tin đăng nhập!");
+            return false;
+        }
+        return login(phone.getText(),password.getPassword());
     }
 
 }

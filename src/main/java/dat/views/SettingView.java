@@ -68,9 +68,9 @@ public class SettingView extends View {
             public void mouseClicked(MouseEvent e) {
                 var info = field.getInfo();
                 if (info == null) return;
-                if (HashPass.isPassHash(info[0], MainFrame.getEmployee().getData()[4])) {
+                if (HashPass.isPassHash(info[0].toCharArray(), MainFrame.getEmployee().getData()[4])) {
                     if( info[1].equals(info[2])){
-                        MainFrame.getEmployee().getData()[4]=HashPass.encode(info[1]);
+                        MainFrame.getEmployee().getData()[4]=HashPass.encode(info[1].toCharArray());
                         (new EmployeeControl()).update(MainFrame.getEmployee_id(), MainFrame.getEmployee());
                         JOptionPane.showMessageDialog(getRootPane(),"Mật khẩu đã được thay đổi");
                         MainFrame.windowChild.dispose();

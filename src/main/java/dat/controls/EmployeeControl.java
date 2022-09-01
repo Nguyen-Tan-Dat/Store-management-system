@@ -11,13 +11,13 @@ public class EmployeeControl extends Control{
 
     @Override
     public void add(Model dto) {
-        dto.getData()[4]= HashPass.encode(dto.getData()[4]);
+        dto.getData()[4]= HashPass.encode(dto.getData()[4].toCharArray());
         super.add(dto);
     }
 
     @Override
     public void update(String id, Model info) {
-        info.getData()[4]= HashPass.encode(info.getData()[4]);
+        info.getData()[4]= HashPass.encode(info.getData()[4].toCharArray());
         super.update(id, info);
     }
 }

@@ -10,7 +10,7 @@ public class Employee extends Model {
         super("Employees");
     }
 
-    public HashMap<String, Model> login(String phone, String pass) {
+    public HashMap<String, Model> login(String phone, char[] pass) {
         var list = database.readTable("select * from employees where phone_number='" + phone + "'");
         HashMap<String, Model> result = new HashMap<>();
         for (var i : list.keySet()) {
